@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khushi Wadhawan | People analytics, but make it fun</title>
+<meta name="description" content="Khushi Wadhawan: MSc People Analytics student at UCL with a Psychology and HR background. Play with the people dots, read the CV, explore the Big Mac chart.">
+<style>
+:root{
+  --ink:#14122B; --cream:#FFF8EE; --blue:#2A6A9E; --sky:#CDE8F7; --orange:#FFCF9E; --yellow:#FFF0A8; --pink:#F9CFE3; --lav:#E4DAFB; --white:#fff;
+  --display:"Arial Black","Avenir Next Heavy","Helvetica Neue",Impact,Arial,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:radial-gradient(rgba(20,18,43,.09) 1.2px,transparent 1.4px);background-size:22px 22px}
+a{color:var(--blue);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+a:hover{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:4px solid var(--blue);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0}
+.box{border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);background:var(--white);border-radius:18px}
+
+/* nav */
+.nav{position:sticky;top:10px;z-index:60;max-width:760px;margin:10px auto 0;padding:0 12px}
+.nav ul{list-style:none;margin:0;padding:8px 10px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;background:var(--white);border:3px solid var(--ink);border-radius:999px;box-shadow:4px 4px 0 var(--ink)}
+.nav a{display:block;text-decoration:none;color:var(--ink);padding:6px 16px;border-radius:999px;font-weight:800;font-size:15px;border:2px solid transparent;transition:transform .15s,background .15s}
+.nav a:hover{background:var(--yellow);transform:rotate(-3deg) scale(1.06)}
+.nav a.on{background:var(--ink);color:var(--cream)}
+
+/* hero */
+.hero{max-width:1100px;margin:0 auto;padding:36px 20px 10px;text-align:center}
+.sticker{display:inline-block;background:var(--yellow);border:3px solid var(--ink);border-radius:999px;padding:6px 16px;font-weight:800;font-size:15px;transform:rotate(-3deg);box-shadow:3px 3px 0 var(--ink);margin-bottom:14px}
+.hero h1{font-size:clamp(52px,13vw,150px);letter-spacing:-.03em;text-transform:uppercase;color:var(--ink)}
+.hero h1 .ln{display:block}
+.hero h1 .l{display:inline-block;transition:transform .25s cubic-bezier(.3,1.8,.5,1);cursor:default}
+.hero h1 .l:hover{transform:translateY(-14px) rotate(-8deg);color:var(--blue)}
+.hero h1 .ln:nth-child(2) .l:hover{color:#B35F00}
+.say{font-family:var(--display);font-size:clamp(22px,4.4vw,40px);margin:18px 0 6px}
+.say .w{display:inline-block;background:var(--ink);color:#FFE9A0;padding:0 14px;border-radius:12px;transform:rotate(-1.5deg);min-width:3ch}
+.sub{max-width:640px;margin:8px auto 0;font-size:19px}
+.pnote{display:inline-block;margin-top:14px;font-weight:700;background:var(--sky);border:2px dashed var(--ink);border-radius:12px;padding:4px 14px}
+
+/* people dots toy */
+.toy{max-width:1000px;margin:26px auto 0;padding:0 20px}
+.toy .box{padding:16px;background:var(--sky)}
+.toy-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.toy h2{font-size:clamp(20px,3.2vw,28px)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:inherit;font-weight:800;font-size:15px;padding:8px 16px;background:var(--white);color:var(--ink);border:3px solid var(--ink);border-radius:999px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s,background .12s}
+.btn:hover{transform:translate(-2px,-2px) rotate(-2deg);box-shadow:5px 5px 0 var(--ink);background:var(--yellow)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn[aria-pressed=true]{background:var(--ink);color:var(--cream)}
+canvas{display:block;width:100%;height:380px;background:var(--white);border:3px solid var(--ink);border-radius:12px;touch-action:pan-y}
+.cap{margin:10px 2px 0;font-size:16px;font-weight:600}
+
+/* marquee */
+.tick{margin:44px 0 0;border-block:3px solid var(--ink);background:var(--orange);overflow:hidden;white-space:nowrap;transform:rotate(-1.2deg)}
+.tick div{display:inline-block;padding:10px 0;font-family:var(--display);font-size:22px;text-transform:uppercase;animation:run 28s linear infinite}
+.tick span{margin:0 18px}
+@keyframes run{to{transform:translateX(-50%)}}
+
+main{max-width:1000px;margin:0 auto;padding:0 20px}
+section{padding:70px 0 10px}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.num{background:var(--ink);color:var(--yellow);font-family:var(--display);font-size:20px;border-radius:12px;padding:4px 12px;transform:rotate(-4deg)}
+h2.t{font-size:clamp(34px,7vw,64px);text-transform:uppercase;letter-spacing:-.02em}
+
+/* about */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{padding:20px;transition:transform .2s}
+.card:hover{transform:rotate(-1.5deg) translateY(-4px)}
+.card:nth-child(2):hover{transform:rotate(1.5deg) translateY(-4px)}
+.c-y{background:var(--yellow)}.c-p{background:var(--pink)}.c-s{background:var(--sky)}.c-o{background:var(--orange)}
+.card h3{font-size:22px;margin-bottom:6px}
+.big{font-family:var(--display);font-size:56px;line-height:1}
+.about-p{font-size:20px;max-width:760px;margin:0 0 22px}
+
+/* cv */
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.panel{padding:8px 22px 20px;animation:pop .3s cubic-bezier(.3,1.6,.5,1)}
+.panel[hidden]{display:none}
+@keyframes pop{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
+.item{padding:16px 0;border-bottom:3px dashed var(--ink)}
+.item:last-child{border-bottom:0}
+.item h3{font-size:19px}
+.meta{margin:4px 0 6px;font-weight:700}
+.pill{display:inline-block;background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:0 10px;font-size:14px;font-weight:800}
+.item ul,details ul{margin:6px 0 0;padding-left:20px}
+details{border-bottom:3px dashed var(--ink);padding:14px 0}
+details:last-child{border-bottom:0}
+summary{cursor:pointer;list-style:none;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+summary::-webkit-details-marker{display:none}
+summary h3{font-size:19px;flex:1 1 260px}
+summary::after{content:"+";font-family:var(--display);font-size:26px;background:var(--yellow);border:3px solid var(--ink);border-radius:50%;width:38px;height:38px;display:grid;place-items:center;line-height:1}
+details[open] summary::after{content:"\2212";background:var(--orange)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+.chip{border:3px solid var(--ink);border-radius:999px;padding:5px 16px;font-weight:800;background:var(--sky);cursor:default;transition:transform .2s cubic-bezier(.3,1.8,.5,1)}
+.chip:nth-child(3n+2){background:var(--yellow)}.chip:nth-child(3n){background:var(--pink)}
+.chip:hover{transform:scale(1.15) rotate(-5deg)}
+.skills-h{font-size:18px;margin-top:16px}
+
+/* portfolio */
+.pf{padding:22px;background:var(--white)}
+.pf h3{font-size:clamp(22px,3.6vw,32px);text-transform:none}
+.q{margin:8px 0 14px;font-weight:600}
+.viewtabs{display:flex;gap:10px;margin-bottom:14px}
+.chartbtn{display:block;width:100%;padding:0;border:3px solid var(--ink);border-radius:12px;background:#fff;cursor:zoom-in;position:relative;overflow:hidden}
+.chartbtn img{display:block;max-width:100%;height:auto;margin:0 auto}
+.chartbtn .zoom{position:absolute;right:10px;top:10px;background:var(--yellow);border:3px solid var(--ink);border-radius:999px;font-weight:800;font-size:14px;padding:3px 12px}
+.frame{width:100%;height:720px;border:3px solid var(--ink);border-radius:12px;background:#fff}
+.hint{font-size:15px;font-weight:600;margin:10px 0 0}
+.notice{background:var(--yellow);border:3px solid var(--ink);border-radius:12px;padding:12px 16px;margin:16px 0 8px}
+.credit{font-size:15px}
+dialog{border:3px solid var(--ink);border-radius:14px;padding:0;max-width:96vw;max-height:94vh;background:#fff}
+dialog::backdrop{background:rgba(20,18,43,.8)}
+dialog .x{position:sticky;top:0;float:right;margin:8px;z-index:2}
+dialog img{display:block;max-width:none;width:min(1300px,92vw);height:auto}
+
+/* contact */
+.contact{margin:70px auto 0;max-width:1000px;padding:0 20px}
+.contact .box{background:var(--lav);color:var(--ink);text-align:center;padding:48px 20px}
+.contact h2{font-size:clamp(34px,8vw,80px);text-transform:uppercase}
+.contact p{font-size:20px;margin:10px auto 22px;max-width:520px}
+.go{display:inline-block;background:var(--yellow);color:var(--ink);text-decoration:none;font-family:var(--display);font-size:22px;padding:14px 30px;border:3px solid var(--ink);border-radius:999px;box-shadow:5px 5px 0 var(--ink);animation:wig 2.6s ease-in-out infinite}
+.go:hover{background:var(--orange);color:var(--ink)}
+@keyframes wig{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-4deg)}94%{transform:rotate(4deg)}98%{transform:rotate(-2deg)}}
+footer{text-align:center;padding:30px 20px 46px;font-weight:600}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.tick div,.go,.panel{animation:none}*{transition:none!important}}
+@media (max-width:640px){canvas{height:340px}.frame{height:560px}.nav a{padding:6px 11px;font-size:14px}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Page sections">
+  <ul>
+    <li><a href="#top">Hi!</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <span class="sticker">MSc People Analytics &middot; UCL</span>
+  <h1 aria-label="Khushi Wadhawan" id="name"><span class="ln">Khushi</span><span class="ln">Wadhawan</span></h1>
+  <p class="say">I turn <span class="w" id="word">people</span> into clear insight.</p>
+  <p class="sub">MSc People Analytics student at UCL, combining a Psychology and HR background with growing data skills.</p>
+  <p class="pnote">Portrait coming soon</p>
+</header>
+
+<div class="toy">
+  <div class="box">
+    <div class="toy-top">
+      <h2>Play with the people dots</h2>
+      <div class="btns" role="group" aria-label="Change how the dots are grouped">
+        <button class="btn" type="button" data-mode="free" aria-pressed="true">Everyone</button>
+        <button class="btn" type="button" data-mode="teams" aria-pressed="false">Teams</button>
+        <button class="btn" type="button" data-mode="attrition" aria-pressed="false">Stay or leave</button>
+        <button class="btn" type="button" data-mode="bars" aria-pressed="false">Engagement</button>
+      </div>
+    </div>
+    <canvas id="crowd" aria-hidden="true"></canvas>
+    <p class="cap" id="cap" aria-live="polite">96 imaginary people, wandering. Move your cursor (or finger) through them, then press a button.</p>
+  </div>
+</div>
+
+<div class="tick" aria-hidden="true"><div id="tick"></div></div>
+
+<main>
+<section id="about" class="rv">
+  <div class="head"><span class="num">01</span><h2 class="t">About</h2></div>
+  <p class="about-p">I am studying MSc People Analytics and Human-Centric Management at UCL School of Management (2026&ndash;2027). I hold a B.A. (Hons.) Psychology, specialising in Industrial-Organisational Psychology, and I have worked in HR operations, attrition analysis and workforce engagement. I am building my skills in Python, Power BI, SQL and HR analytics. This site shows my first data visualisation project from the course.</p>
+  <div class="grid">
+    <div class="box card c-y"><div class="big">UCL</div><h3>MSc, 2026&ndash;27</h3><p>People Analytics and Human-Centric Management.</p></div>
+    <div class="box card c-p"><div class="big">5</div><h3>Internships</h3><p>HR, operations and clinical psychology.</p></div>
+    <div class="box card c-s"><div class="big">60+</div><h3>Profiles screened</h3><p>and 22+ interviews scheduled in one HR internship.</p></div>
+    <div class="box card c-o"><div class="big">40+</div><h3>People led</h3><p>as General Secretary of a society.</p></div>
+  </div>
+</section>
+
+<section id="cv" class="rv">
+  <div class="head"><span class="num">02</span><h2 class="t">CV</h2></div>
+  <p><strong>CV download coming soon.</strong> Pick a tab to read it here.</p>
+  <div class="tabs" role="tablist" aria-label="CV sections">
+    <button class="btn" role="tab" id="t-edu" aria-controls="p-edu" aria-selected="true">Education</button>
+    <button class="btn" role="tab" id="t-exp" aria-controls="p-exp" aria-selected="false" tabindex="-1">Experience</button>
+    <button class="btn" role="tab" id="t-res" aria-controls="p-res" aria-selected="false" tabindex="-1">Research &amp; leadership</button>
+    <button class="btn" role="tab" id="t-ski" aria-controls="p-ski" aria-selected="false" tabindex="-1">Skills</button>
+  </div>
+
+  <div class="box panel" id="p-edu" role="tabpanel" aria-labelledby="t-edu">
+    <div class="item"><h3>MSc People Analytics and Human-Centric Management</h3><p class="meta">University College London (UCL), UCL School of Management <span class="pill">Sept 2026 &ndash; Sept 2027</span></p></div>
+    <div class="item"><h3>B.A. (Hons.) Psychology</h3><p class="meta">O.P. Jindal Global University, Jindal School of Psychology and Counselling <span class="pill">Aug 2021 &ndash; May 2024</span></p></div>
+    <div class="item"><h3>Senior School Certificate Examination (CBSE Class XII)</h3><p class="meta">The Heritage School, New Delhi <span class="pill">2021</span></p></div>
+  </div>
+
+  <div class="box panel" id="p-exp" role="tabpanel" aria-labelledby="t-exp" hidden>
+    <details open>
+      <summary><h3>Marketing Operations Associate, Elegant Journeys</h3><span class="pill">Oct 2025 &ndash; Aug 2026</span></summary>
+      <ul>
+        <li>Worked with operations and leadership to streamline client workflows, booking communications and service delivery.</li>
+        <li>Analysed client engagement data across multi-channel campaigns to inform marketing strategy.</li>
+        <li>Standardised operational tracking sheets in Excel, improving turnaround times and partner communication.</li>
+      </ul>
+    </details>
+    <details>
+      <summary><h3>Human Resource Intern, Wipro Certified Training Program (via Corizo)</h3><span class="pill">July &ndash; Sept 2025</span></summary>
+      <ul>
+        <li>Designed an end-to-end onboarding programme framework to improve new-hire integration and reduce early turnover.</li>
+        <li>Drafted disciplinary policies and a retention-focused employee engagement strategy.</li>
+      </ul>
+    </details>
+    <details>
+      <summary><h3>Human Resource Intern, Gourmet Investments Private Ltd. (GIPL)</h3><span class="pill">Jan &ndash; Feb 2025</span></summary>
+      <ul>
+        <li>Supported onboarding, exit interviews and record-keeping; evaluated exit survey data to propose retention initiatives.</li>
+        <li>Coordinated company-wide engagement events and redesigned orientation presentations.</li>
+      </ul>
+    </details>
+    <details>
+      <summary><h3>Human Resource Intern, Elegant Journeys</h3><span class="pill">June &ndash; July 2024</span></summary>
+      <ul>
+        <li>Screened and shortlisted 60+ applicant profiles and scheduled 22+ candidate interviews.</li>
+        <li>Drafted HR compliance notes and introduced standardised interview feedback templates.</li>
+      </ul>
+    </details>
+    <details>
+      <summary><h3>Clinical Psychology Intern, Fortis Healthcare Limited</h3><span class="pill">July 2024</span></summary>
+      <ul><li>Completed a 75-hour certified clinical internship focused on psychological assessment methods and case analysis.</li></ul>
+    </details>
+  </div>
+
+  <div class="box panel" id="p-res" role="tabpanel" aria-labelledby="t-res" hidden>
+    <div class="item"><h3>Lead Researcher and Concept Developer, JSPC Group Research Study</h3><p class="meta"><span class="pill">Aug &ndash; Dec 2023</span></p>
+      <ul><li>Ran a qualitative study on digital loneliness and student attachment styles in residential university settings.</li><li>Conceptualised &lsquo;Solace&rsquo; (under Project connectED), a peer-support platform design.</li></ul></div>
+    <div class="item"><h3>Community Service and Research Intern, CRY &ndash; Child Rights and You</h3><p class="meta"><span class="pill">Jan &ndash; Feb 2023</span></p></div>
+    <div class="item"><h3>Leadership</h3>
+      <ul>
+        <li>General Secretary and Board Member, Thadeem Classical Dance Society (Jan 2023 &ndash; May 2025): planned 24+ cultural events and led 40+ members.</li>
+        <li>Creative Team Member, Psychology Society (Aug 2024 &ndash; May 2025).</li>
+        <li>Sports Captain and Vice Head Girl, The Heritage School (2018 &ndash; 2021).</li>
+      </ul></div>
+  </div>
+
+  <div class="box panel" id="p-ski" role="tabpanel" aria-labelledby="t-ski" hidden>
+    <h3 class="skills-h">Data and tools</h3>
+    <div class="chips"><span class="chip">Python (coursework)</span><span class="chip">Power BI</span><span class="chip">SQL</span><span class="chip">Advanced Excel</span><span class="chip">Quantitative research</span><span class="chip">Qualitative research</span></div>
+    <h3 class="skills-h">People operations</h3>
+    <div class="chips"><span class="chip">People analytics</span><span class="chip">Onboarding design</span><span class="chip">Attrition analysis</span><span class="chip">HR policy drafting</span><span class="chip">Workplace engagement</span></div>
+  </div>
+</section>
+
+<section id="portfolio" class="rv">
+  <div class="head"><span class="num">03</span><h2 class="t">Portfolio</h2></div>
+  <div class="box pf">
+    <h3>Is a currency too strong or too weak? The Big Mac index, July 2026</h3>
+    <p class="q">The question it answers: does a Big Mac cost more or less in each country than in the US, once converted to dollars?</p>
+
+    <div class="viewtabs" role="tablist" aria-label="Chart view">
+      <button class="btn" role="tab" id="v-pic" aria-controls="vp-pic" aria-selected="true">Picture</button>
+      <button class="btn" role="tab" id="v-int" aria-controls="vp-int" aria-selected="false" tabindex="-1">Interactive</button>
+    </div>
+    <div id="vp-pic" role="tabpanel" aria-labelledby="v-pic">
+      <button class="chartbtn" id="openzoom" type="button" aria-label="Open the chart larger">
+        <span class="zoom" aria-hidden="true">Zoom</span>
+        <img src="images/chart1.png" alt="Chart of 54 countries sorted from dearest (Switzerland, Big Mac 45% more than in the US) to cheapest (Indonesia, 62% less), with blue circles for raw values and orange diamonds for GDP-adjusted values.">
+      </button>
+      <p class="hint">Tip: click the chart to zoom in.</p>
+    </div>
+    <div id="vp-int" role="tabpanel" aria-labelledby="v-int" hidden>
+      <iframe class="frame" id="frame" title="Interactive Big Mac index chart: drag the slider or press Play to move from 2000 to 2026" loading="lazy"></iframe>
+      <p class="hint">Press <strong>Play</strong> under the chart, or drag the slider, to watch the ranking change from 2000 to 2026. Scroll inside the frame to see all of it. It needs an internet connection.</p>
+    </div>
+
+    <p><strong>What to notice:</strong> a Big Mac costs 45% more in Switzerland than in the US and 62% less in Indonesia, and adjusting for income barely changes the typical gap (27% raw, 25% adjusted).</p>
+    <p class="notice"><strong>Copy of a course chart.</strong> A copy of the MSIN0167 course target chart, built as a class exercise with AI help. It is inspired by The Economist&rsquo;s Big Mac index and is not a chart by The Economist.</p>
+    <p class="credit">Data: The Economist, Big Mac index (MIT licence, see LICENCE_bigmac_TheEconomist.txt), github.com/TheEconomist/big-mac-data.</p>
+  </div>
+  <p class="hint">More projects coming soon.</p>
+</section>
+</main>
+
+<section id="contact" class="contact rv">
+  <div class="box">
+    <h2>Say hi</h2>
+    <p>The best way to reach me is on LinkedIn.</p>
+    <a class="go" href="https://www.linkedin.com/in/khushi-wadhawan-259434190/">Connect on LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Khushi Wadhawan. Built with the help of generative AI; content and decisions are my own.</p>
+</footer>
+
+<dialog id="zoom" aria-label="Chart, larger view">
+  <button class="btn x" type="button" id="closezoom">Close</button>
+  <img src="images/chart1.png" alt="Larger view of the Big Mac index chart for July 2026, sorted from Switzerland (dearest) to Indonesia (cheapest).">
+</dialog>
+
+<script>
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* bouncy letters in the name */
+  document.querySelectorAll('#name .ln').forEach(function(ln){
+    var t=ln.textContent;ln.textContent='';
+    t.split('').forEach(function(ch){var s=document.createElement('span');s.className='l';s.setAttribute('aria-hidden','true');s.textContent=ch;ln.appendChild(s);});
+  });
+
+  /* rotating word */
+  var words=['people','attrition','onboarding','engagement','HR data'],wi=0,wel=document.getElementById('word');
+  if(!reduce)setInterval(function(){wi=(wi+1)%words.length;wel.textContent=words[wi];},2200);
+
+  /* ticker */
+  var items=['People analytics','Attrition analysis','Onboarding design','Workplace engagement','Power BI','SQL','Python','HR policy','Research methods','Excel'];
+  var h='';for(var r=0;r<2;r++)items.forEach(function(x){h+='<span>'+x+'</span><span>✶</span>';});
+  document.getElementById('tick').innerHTML=h;
+
+  /* reveal + active menu */
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.06});
+    rv.forEach(function(el){io.observe(el);});
+    var links=document.querySelectorAll('.nav a');
+    var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id);});}});},{rootMargin:'-40% 0px -55% 0px'});
+    ['top','about','cv','portfolio','contact'].forEach(function(id){var s=document.getElementById(id);if(s)so.observe(s);});
+  }else{rv.forEach(function(el){el.classList.add('in');});}
+
+  /* tabs */
+  function tabs(sel){
+    var list=document.querySelector(sel);if(!list)return;
+    var btns=[].slice.call(list.querySelectorAll('[role=tab]'));
+    function pick(b){
+      btns.forEach(function(x){var on=x===b;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});
+      if(b.id==='v-int'){var f=document.getElementById('frame');if(!f.getAttribute('src'))f.setAttribute('src','charts/chart1.html');}
+    }
+    btns.forEach(function(b,i){
+      b.addEventListener('click',function(){pick(b);});
+      b.addEventListener('keydown',function(e){var n=-1;if(e.key==='ArrowRight')n=(i+1)%btns.length;if(e.key==='ArrowLeft')n=(i-1+btns.length)%btns.length;if(n>=0){e.preventDefault();btns[n].focus();pick(btns[n]);}});
+    });
+  }
+  tabs('.tabs');tabs('.viewtabs');
+
+  /* chart zoom */
+  var dlg=document.getElementById('zoom');
+  document.getElementById('openzoom').addEventListener('click',function(){if(dlg.showModal)dlg.showModal();});
+  document.getElementById('closezoom').addEventListener('click',function(){dlg.close();});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+
+  /* ---------- people dots (made-up people, NOT real data) ---------- */
+  var cv=document.getElementById('crowd'),ctx=cv.getContext('2d');
+  var N=96,dots=[],W=0,H=0,mode='free',mouse={x:-999,y:-999},labels=[],running=false,visible=false;
+  var TEAM=['#7FB5E0','#FFC27A','#A9DDF5','#F2A9CF'],TNAME=['Ops','HR','Marketing','Research'];
+  var LEVEL=['#E6F3FB','#C2E3F5','#8FCBEB','#5AAEDC','#2F86BF'],LNAME=['Low','','Medium','','High'];
+  for(var i=0;i<N;i++)dots.push({x:Math.random()*300,y:Math.random()*300,vx:0,vy:0,tx:0,ty:0,
+    team:i%4,leave:(i*7)%10<3,lvl:(i*13+Math.floor(i/5))%5,ph:Math.random()*6.28});
+
+  function size(){
+    var r=cv.getBoundingClientRect(),d=window.devicePixelRatio||1;W=r.width;H=r.height;
+    cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);layout(true);
+  }
+  function stack(list,cx,top,cols,gap){
+    list.forEach(function(d,k){d.tx=cx+((k%cols)-(cols-1)/2)*gap;d.ty=top+Math.floor(k/cols)*gap;});
+  }
+  function layout(snap){
+    labels=[];
+    if(mode==='free'){
+      dots.forEach(function(d){d.tx=30+Math.random()*(W-60);d.ty=40+Math.random()*(H-80);});
+    }else if(mode==='teams'){
+      for(var t=0;t<4;t++){var g=dots.filter(function(d){return d.team===t;});var cx=W*(t+.5)/4;stack(g,cx,95,Math.min(4,Math.floor((W/4-10)/17)),17);labels.push({t:TNAME[t],x:cx,y:50});}
+    }else if(mode==='attrition'){
+      var s=dots.filter(function(d){return !d.leave;}),l=dots.filter(function(d){return d.leave;});
+      var cs=Math.floor(W*.52/18),cl=Math.floor(W*.26/18);
+      stack(s,W*.33,90,cs,18);stack(l,W*.8,90,Math.max(3,cl),18);
+      labels.push({t:'Stayed ('+s.length+')',x:W*.33,y:50},{t:'Left ('+l.length+')',x:W*.8,y:50});
+    }else{
+      for(var v=0;v<5;v++){var g2=dots.filter(function(d){return d.lvl===v;});var cx2=W*(v+.5)/5;
+        g2.forEach(function(d,k){d.tx=cx2+((k%2)-.5)*17;d.ty=H-34-Math.floor(k/2)*17;});labels.push({t:LNAME[v],x:cx2,y:H-10});}
+    }
+    if(snap||reduce)dots.forEach(function(d){d.x=d.tx;d.y=d.ty;d.vx=d.vy=0;});
+    draw();
+  }
+  function color(d){
+    if(mode==='attrition')return d.leave?'#FFB866':'#7FB5E0';
+    if(mode==='bars')return LEVEL[d.lvl];
+    return TEAM[d.team];
+  }
+  function person(x,y,c){
+    ctx.fillStyle=c;ctx.strokeStyle='#14122B';ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.arc(x,y+4,6.5,Math.PI,0);ctx.lineTo(x+6.5,y+8);ctx.lineTo(x-6.5,y+8);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.arc(x,y-4,4.6,0,6.283);ctx.fill();ctx.stroke();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    labels.forEach(function(l){ctx.fillStyle='#14122B';ctx.font='800 15px '+getComputedStyle(document.body).fontFamily;ctx.textAlign='center';ctx.fillText(l.t,l.x,l.y);});
+    dots.forEach(function(d){person(d.x,d.y,color(d));});
+  }
+  var last=0;
+  function tick(ts){
+    if(!running)return;
+    dots.forEach(function(d){
+      var k=mode==='free'?.004:.045;
+      d.vx+=(d.tx-d.x)*k;d.vy+=(d.ty-d.y)*k;
+      var dx=d.x-mouse.x,dy=d.y-mouse.y,dd=Math.sqrt(dx*dx+dy*dy);
+      if(dd<70&&dd>0.1){var f=(70-dd)/70*2.2;d.vx+=dx/dd*f;d.vy+=dy/dd*f;}
+      d.vx*=.88;d.vy*=.88;d.x+=d.vx;d.y+=d.vy;
+    });
+    if(mode==='free'&&ts-last>3500){last=ts;dots.forEach(function(d){if(Math.random()<.35){d.tx=30+Math.random()*(W-60);d.ty=40+Math.random()*(H-80);}});}
+    draw();requestAnimationFrame(tick);
+  }
+  function start(){if(reduce||running||!visible)return;running=true;requestAnimationFrame(tick);}
+  function stop(){running=false;}
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting;visible?start():stop();}).observe(cv);}
+  else{visible=true;start();}
+
+  function pos(e){var r=cv.getBoundingClientRect(),p=e.touches?e.touches[0]:e;mouse.x=p.clientX-r.left;mouse.y=p.clientY-r.top;}
+  cv.addEventListener('pointermove',pos);cv.addEventListener('pointerleave',function(){mouse.x=mouse.y=-999;});
+  cv.addEventListener('pointerdown',pos);cv.addEventListener('pointerup',function(){mouse.x=mouse.y=-999;});
+
+  var CAPS={
+    free:'96 imaginary people, wandering. Move your cursor (or finger) through them, then press a button.',
+    teams:'The same 96 people, grouped into four teams. Colour shows the team, so nobody gets lost.',
+    attrition:'Stay or leave: 29 of the 96 left (orange), the rest stayed (blue). A made-up example of the kind of split attrition analysis looks at.',
+    bars:'Engagement from low to high, shown as a dot histogram: darker blue means more engaged. Made-up numbers, just for fun.'
+  };
+  document.querySelectorAll('.btn[data-mode]').forEach(function(b){
+    b.addEventListener('click',function(){
+      mode=b.getAttribute('data-mode');
+      document.querySelectorAll('.btn[data-mode]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
+      document.getElementById('cap').textContent=CAPS[mode]+(mode==='free'?'':' (Imaginary people, not real data.)');
+      layout(false);
+    });
+  });
+  var nLeft=dots.filter(function(d){return d.leave;}).length;
+  CAPS.attrition='Stay or leave: '+nLeft+' of the '+N+' left (orange), the rest stayed (blue). A made-up example of the kind of split attrition analysis looks at.';
+  size();
+  window.addEventListener('resize',function(){size();});
+})();
+</script>
+</body>
+</html>
